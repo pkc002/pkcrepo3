@@ -1,0 +1,56 @@
+<project name="Calculator" default="dist" basedir=".">
+	<property environment="env" />
+	<property name="src" location="src"/>
+	<property name="build" location="build"/>
+	<property name="src.dir" value="RESULT" />
+	<property name="dist" location="dist"/>
+<property name="search.string" value="RESULT_BAD" />
+
+<fileset id="existing" dir="${src.dir}">
+    <patternset id="files">
+        <!-- includes/excludes for your source here -->
+    </patternset>
+</fileset>
+
+<fileset id="matches" dir="${src.dir}">
+    <patternset refid="files" />
+    <contains text="${search.string}" />
+</fileset>
+
+<fail message="Found '${search.string}' in '${src.dir}' Analysis Area. TERMINATING THE BUILD">
+    <condition>
+        <resourcecount when="greater" count="0" refid="matches" />
+    </condition>
+</fail>
+	<target name="show">
+		<echo dir="${build}"/>
+	</target>
+
+	<target name="compile">
+		<mkdir dir="${build}"/>
+		<javac srcdir="${src}" destdir="${build}"/>
+	</target>
+
+	<target name="dist" depends="init, compile">
+		<mkdir dir="${dist}"/>
+		<jar jarfile="${dist}/calculator.jar"
+			basedir="${build}">
+			<manifest>
+				<attribute name="Main-Class" 
+					value="Calc"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="init">
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+		<tstamp/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+	</target>
+
+</project>
