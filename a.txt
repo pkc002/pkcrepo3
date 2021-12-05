@@ -1,4 +1,8 @@
 first file a.txt
+<<<<<<< HEAD
 The 2nd code
 3rd code
 4th code from dev_br branch
+=======
+the 2nd line of code added
+>>>>>>> 3c376e0227520f412d31e9452769919291672575
