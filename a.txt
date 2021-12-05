@@ -1,2 +1,3 @@
 first file a.txt
 The 2nd code
+3rd code
